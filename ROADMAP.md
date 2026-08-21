@@ -2,7 +2,7 @@
 
 **Repository:** `boulingua/ele` (Español como Lengua Extranjera) · **Code:** `ele` · **Signature accent:** `#198D81` (light) / `#7EE7DC` (dark), pentagon mark · **Status:** scaffold → *coming soon*.
 
-This roadmap turns the current empty scaffold (LICENSE + README + brand icons) into a full boulingua Spanish course — content **and** website — instantiated from `pagegen`, mapped to the `curriculum` framework, and shipped under the shared gate battery. It is written to be executed top-to-bottom.
+This roadmap turns the current empty scaffold (LICENSE + README + brand icons) into a full boulingua Spanish course — content **and** website — built on the `kit` platform, mapped to the `curriculum` framework, and shipped under the shared gate battery. It is written to be executed top-to-bottom.
 
 ---
 
@@ -27,33 +27,34 @@ This roadmap turns the current empty scaffold (LICENSE + README + brand icons) i
 
 Each item states a concrete, opinionated recommendation.
 
-- **Script / writing system.** Latin, no transliteration layer needed. **Decision: no special handling** beyond correct locale (`es`) collation and full support for `á é í ó ú ü ñ ¿ ¡`. Ensure editor + build treat files as UTF-8 (already standard in pagegen).
+- **Script / writing system.** Latin, no transliteration layer needed. **Decision: no special handling** beyond correct locale (`es`) collation and full support for `á é í ó ú ü ñ ¿ ¡`. Ensure editor + build treat files as UTF-8 (already the platform standard).
 - **Variant / dialect.** **Recommendation: European (Castilian) Spanish as the taught norm**, with a standing "Latin-American variation" callout box wherever it is pedagogically useful (vocabulary pairs, *vosotros* vs *ustedes*, *vale/¿mande?*, `vos` note at B1+). Rationale: the German school audience is taught Peninsular Spanish; a single consistent norm keeps audio, keys, and exams coherent. LatAm is surfaced as *awareness*, never as a competing answer key. This matches the existing README ("Standard (Castilian) Spanish, with attention to Latin-American variation").
 - **RTL.** Not applicable.
-- **Web fonts / script coverage.** No extra coverage needed — the theme's Latin fonts and slidegen/sheetgen's bundled Source Sans 3 / JetBrains Mono already cover all Spanish glyphs and punctuation. **Decision: use the shared font stack unchanged**; add a rendering check for `¿¡ñ` + combining accents to the deck/worksheet QA.
+- **Web fonts / script coverage.** No extra coverage needed — the theme's Latin fonts and the kit's bundled Source Sans 3 / JetBrains Mono already cover all Spanish glyphs and punctuation. **Decision: use the shared font stack unchanged**; add a rendering check for `¿¡ñ` + combining accents to the deck/worksheet QA.
 - **Native-voice / Piper TTS.** **Decision: `es_ES-davefx-medium` (CC0) as the primary voice, `es_ES-sharvard-medium` (CC BY 3.0) where a dialogue needs two speakers.** Both licences are on the org allow-list, so Spanish is unconstrained where most boulingua languages are not. `davefx` is CC0 and carries no obligation at all; `sharvard` costs one attribution row in `NOTICE.md`, and buys something the rest of the map does not have — it is a **two-speaker model**, so alternating dialogue voices come from a single `.onnx` rather than needing a second download and a second QA pass. Audio is a launch feature, not a phase-2 nice-to-have.
-- **Voice IDs are never hand-typed.** The IDs, tiers and licences above are read from `audiogen/voices.yml` (relocating to `kit/audio/voices.yml` at F1), which is the single source of truth; adding a voice means adding a row there, not editing a table or a download script by hand. A voice ID retyped from memory is how a 404 gets written into a build.
+- **Voice IDs are never hand-typed.** The IDs, tiers and licences above are read from `kit/audio/voices.yml`, which is the single source of truth and must never be hand-copied into prose; adding a voice means adding a row there, not editing a table or a download script by hand. A voice ID retyped from memory is how a 404 gets written into a build.
 - **Level-0 onboarding stage.** **Recommendation: ship a short "El alfabeto y los sonidos" onboarding bundle** (2–3 units) before A1 proper: alphabet with Spanish sound values, `ñ` and digraphs (`ch`, `ll`, `rr`), written accents + stress rules, `¿?`/`¡!`, and greetings. Modelled on the pre-A1 tier in `curriculum/levels/pre-a1.md`; it seeds pronunciation habits the regular orthography then reinforces.
 
 ---
 
-## 3. Instantiation from pagegen
+## 3. Instantiation from the kit
 
-Stand up the buildable site first; author content into it after.
+Stand up the buildable site first; author content into it after. Nothing shared is copied — `ele` imports it.
 
-1. **Copy the template into this repo.** Bring `pagegen`'s `hugo.toml`, `archetypes/`, `layouts/`, `assets/`, `static/`, `data/`, `i18n/`, `scripts/`, `_materials/`, `.github/workflows/build-deploy.yml`, `go.mod`/`go.sum`, `lychee.toml`, `.gitattributes`, `.gitignore`, `.nojekyll`, and the three legal pages + `about/` into `boulingua/ele/`. Keep `public/` untracked.
-2. **Edit only the marked `hugo.toml` values:**
+1. **Create the repo around the kit.** `boulingua/ele` holds a short `hugo.toml` — baseURL, title, languageCode, `[params]`, menus, and a `[module]` block with `[[module.imports]] path = "github.com/boulingua/kit"` — plus `go.mod`/`go.sum` requiring `github.com/boulingua/kit` at the pinned tag (`v1.0.0`), `boulingua.yml` (the per-course config the gate battery reads), the twelve-line `.github/workflows/deploy.yml` that calls the org's reusable workflow, an empty `content/` skeleton, the three legal pages + `about/`, `lychee.toml`, `.gitattributes`, `.gitignore`, `.nojekyll`. `layouts/`, `assets/`, `i18n/`, `archetypes/` and `scripts/` are **not** copied and must never appear in this repo: they are the drift surface, and a file that is not here cannot fork. Hugo resolves the first four from the module; CI checks the kit out at the pinned tag so `scripts/` and the gate battery are on disk before Hugo runs. Keep `public/` untracked.
+2. **Vendor `_materials/`.** `kit materials sync` assembles the kit's `latex/`, `fonts/` and `brand/icons/` into the flat `_materials/` tree the LaTeX build expects; commit the result. It is the only vendored surface — XeLaTeX cannot read a Hugo module — and every file in it is checked against the digests in `kit.lock`, so a local edit fails the build rather than forking silently. (Earlier drafts said to copy `_materials/` from the template. `pagegen` never had one.)
+3. **Edit only the marked `hugo.toml` values:**
    - `baseURL = "https://boulingua.github.io/ele/"`
    - `title = "Español (ELE) — S. Le Boulanger"`
    - `languageCode = "es"` · `defaultContentLanguage = "es"`
    - `[params].navTitle = "Español"` · `description` (Spanish course blurb) · `keywords = "Spanish,español,ELE,CEFR,curriculum,OER,Castilian"`
-   - `[params].code = "ele"` (selects the accent — do **not** touch CSS)
-   - `[params.plausible].domain = "boulingua.github.io/ele"`
+   - `[params].code = "ele"` — selects the accent from the kit's `data/accents.yaml`; do **not** touch CSS. This one is load-bearing: the kit's default is the neutral graphite `template` accent, so a course that leaves it unset looks obviously unconfigured instead of looking like DaF.
+   - `[params.plausible].domain = "boulingua.github.io/ele"` — keep this sub-table **last** under `[params]`; TOML scopes every key after a header to that header, so opening it early silently moves the bare `[params]` keys under `params.plausible` and leaves the site unstyled.
    - `[[params.social]].url = "https://github.com/boulingua/ele"`
    - `[[menu.main]]` sections → mirror the real content sections: `onboarding`, `level-a1 … level-c1`, `materials`, `about`, `legal`.
-3. **Confirm the accent + regenerate the icon.** `data/accents.yaml` already carries `code: ele → #198D81 / hover #12665D` — verify, then run `python brand/make_icon.py` to regenerate the pentagon + favicons from the accent. Confirm `brand/icon.svg`/`icon.png` match the README's stated colours.
-4. **Fill legal placeholders.** Replace every `⟨…⟩` in `impressum.md` / `datenschutz.md` / `haftungsausschluss.md` (incl. the VG Wort METIS disclosure clause) so `verify_legal_placeholders.py` passes.
-5. **First green build + Pages.** `hugo` builds clean; run the gate battery locally (`scripts/verify-*.sh`); enable GitHub Pages via the copied `build-deploy.yml`; confirm the deployed placeholder site renders with the teal accent and pentagon.
+4. **Confirm the accent + regenerate the icon.** The kit's `data/accents.yaml` already carries `code: ele → #198D81 / hover #12665D` and arrives with the module — verify, then run the kit's `brand/make_icon.py` to regenerate this repo's pentagon + favicons from the accent. Confirm `brand/icon.svg`/`icon.png` match the README's stated colours.
+5. **Fill legal placeholders.** Replace every `⟨…⟩` in `impressum.md` / `datenschutz.md` / `haftungsausschluss.md` (incl. the VG Wort METIS disclosure clause) so `verify_legal_placeholders.py` passes.
+6. **First green build + Pages.** `hugo --panicOnWarning` builds clean; run the gate battery locally through `bin/kit`; enable GitHub Pages via `deploy.yml`; confirm the deployed placeholder site renders with the teal accent and pentagon.
 
 **Definition of "scaffold done":** site builds, deploys, is correctly branded and legally complete — still *coming soon* on the world map until §8's flip criteria are met.
 
@@ -98,9 +99,9 @@ Phased by CEFR level, five-step unit model, recurring cast/theme, exams as **fir
 
 ## 6. Website & materials
 
-- **Section landings via shortcodes.** Each `content/<level>/_index.md` is `page_type: section` and uses the shared shortcodes for its landing grid — never raw HTML (pagegen standard). Menu mirrors sections.
-- **Materials pipeline (committed).** Generate decks with **slidegen** (Beamer, XeLaTeX, bundled fonts) and worksheets with **sheetgen** in the boulingua design language; render via `scripts/build_materials_latex.py`. Commit `.pdf` (and editable source) under `static/materials/` + `static/downloads/`; CI only *verifies* (`verify_downloads.py`) — no TeX Live in the deploy path. Front-matter `presentation`/`worksheet` `{ file, thumbnail }` per unit.
-- **Native-voice audio (audiogen / Piper).** **Available and licence-clear for Spanish** — `es_ES-davefx-medium` (CC0) primary, `es_ES-sharvard-medium` (CC BY 3.0, two speakers in one model) for two-speaker dialogues (§2). Both rows live in `audiogen/voices.yml` (→ `kit/audio/voices.yml` at F1); the `.onnx` path passed to the build comes from that row and is never typed in. Run `python build_audio.py /path/to/ele <voice .onnx> es 'content/level-*/units/*/index.md'` — idempotent (re-synth only on text/voice change), output OGG/Opus. Cover vocabulary, dialogues, and reading texts from A1 onward; onboarding sounds get audio too. `sharvard`'s CC BY 3.0 needs an attribution row in `NOTICE.md` before its audio ships.
+- **Section landings via shortcodes.** Each `content/<level>/_index.md` is `page_type: section` and uses the shared shortcodes for its landing grid — never raw HTML (platform standard). Menu mirrors sections.
+- **Materials pipeline (committed).** Generate decks and worksheets from the kit's LaTeX templates (`kit/latex/`, Beamer, XeLaTeX, bundled fonts, vendored into `_materials/`) in the boulingua design language; render via `scripts/build_materials_latex.py`. Commit `.pdf` (and editable source) under `static/materials/` + `static/downloads/`; CI only *verifies* (`verify_downloads.py`) — no TeX Live in the deploy path. Front-matter `presentation`/`worksheet` `{ file, thumbnail }` per unit.
+- **Native-voice audio (Piper).** **Available and licence-clear for Spanish** — `es_ES-davefx-medium` (CC0) primary, `es_ES-sharvard-medium` (CC BY 3.0, two speakers in one model) for two-speaker dialogues (§2). Both rows live in `kit/audio/voices.yml`; the `.onnx` path passed to the build comes from that row and is never typed in. Run `python build_audio.py /path/to/ele <voice .onnx> es 'content/level-*/units/*/index.md'` — idempotent (re-synth only on text/voice change), output OGG/Opus. Cover vocabulary, dialogues, and reading texts from A1 onward; onboarding sounds get audio too. `sharvard`'s CC BY 3.0 needs an attribution row in `NOTICE.md` before its audio ships.
 - **Thumbnails & downloads.** `scripts/render_thumbs.py` for deck/worksheet thumbnails; downloads hub lists per-level PDFs; `pdf_attribution.py` stamps CC BY-SA attribution.
 - **Materials hub guard.** The `/materials/` hub is a navigation surface — **no** VG Wort pixel there (enforced by the hub guard, §7).
 
@@ -108,7 +109,7 @@ Phased by CEFR level, five-step unit model, recurring cast/theme, exams as **fir
 
 ## 7. VG Wort — pixel assignment for ALL content pages (required, non-skippable)
 
-Every original **creative text ≥1800 rendered characters** gets exactly one VG Wort Zählmarke, per `pagegen/docs/vgwort-standard.md`. This is binding and applies to **every** unit, exam, appendix, and editorial page (about/references/acknowledgements). It does **not** apply to navigation surfaces (home, `/materials/`, tag/category indexes, `/page/N/`) or the **templated legal pages** (Impressum/Datenschutz/Haftungsausschluss).
+Every original **creative text ≥1800 rendered characters** gets exactly one VG Wort Zählmarke, per `kit/docs/vgwort-standard.md`. This is binding and applies to **every** unit, exam, appendix, and editorial page (about/references/acknowledgements). It does **not** apply to navigation surfaces (home, `/materials/`, tag/category indexes, `/page/N/`) or the **templated legal pages** (Impressum/Datenschutz/Haftungsausschluss).
 
 **Procedure per work:**
 1. Draw a **fresh public code** (32-hex "Öffentlicher Identifikationscode") from the author's **T.O.M.** account — one per work, never reused, never inventing codes, never exposing the private code.
@@ -135,7 +136,7 @@ Draw codes per phase (not all at once): ~15 for the MVP (onboarding + A1 + A1 ex
 ## 8. Milestones & sequencing
 
 1. **M0 — Scaffold live (S).** §3 complete: branded, legally complete, green build on Pages, still *coming soon*. Depends on: nothing.
-2. **M1 — MVP: Onboarding + A1 live (L).** Onboarding bundle + 12 A1 units + A1 exam + core appendices + about; decks/worksheets/audio committed; A1 descriptor IDs resolve under the §4 gate; ~15 VG Wort marks registered. Depends on: M0, the `ele` voice row in `audiogen/voices.yml`, slidegen/sheetgen templates.
+2. **M1 — MVP: Onboarding + A1 live (L).** Onboarding bundle + 12 A1 units + A1 exam + core appendices + about; decks/worksheets/audio committed; A1 descriptor IDs resolve under the §4 gate; ~15 VG Wort marks registered. Depends on: M0, the `ele` voice row in `kit/audio/voices.yml`, the kit's LaTeX templates.
 3. **M2 — A2 complete → `core` conformance (A1–B1 requires B1) (L).** A2 units+exam; conformance manifest updated.
 4. **M3 — B1 complete → declare `core` (A1–B1) (L).** The §4 gate green across A1–B1; publish `declared_conformance: core`.
 5. **M4 — B2 complete (L).**
