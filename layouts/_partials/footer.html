@@ -1,0 +1,42 @@
+{{/*
+  Override of hugo-coder's footer.html with the boulingua footer link
+  strip, localised for the Spanish course: course pages, sister sites,
+  legal pages, contact. Every href here must resolve to a page that
+  exists — the link checker treats a dead footer link as a build defect.
+*/}}
+{{- if (or (not .Site.Params.hideFooter) (eq .Site.Params.hideFooter false)) }}
+<footer class="footer">
+  <section class="container">
+    <p class="footer-line">
+      ELE · © {{ .Site.Params.author }} · MIT / CC BY-SA 4.0
+    </p>
+    <p class="footer-links">
+      <a href="{{ "/" | relLangURL }}">Inicio</a> ·
+      <a href="{{ "/onboarding/" | relLangURL }}">Nivel 0</a> ·
+      <a href="{{ "/level-a1/" | relLangURL }}">A1</a> ·
+      <a href="{{ "/level-a2/" | relLangURL }}">A2</a> ·
+      <a href="{{ "/level-b1/" | relLangURL }}">B1</a> ·
+      <a href="{{ "/level-b2/" | relLangURL }}">B2</a> ·
+      <a href="{{ "/level-c1/" | relLangURL }}">C1</a> ·
+      <a href="{{ "/materials/" | relLangURL }}">Materiales</a> ·
+      <a href="{{ "/appendices/" | relLangURL }}">Apéndices</a> ·
+      <a href="{{ "/about/" | relLangURL }}">Sobre este curso</a>
+    </p>
+    <p class="footer-links">
+      <a href="https://boulingua.github.io/website/">boulingua</a> ·
+      <a href="https://boulingua.github.io/daf/">DaF</a> ·
+      <a href="https://boulingua.github.io/efl/">EFL</a> ·
+      <a href="https://boulingua.github.io/fle/">FLE</a> ·
+      <strong><a href="{{ "/impressum/" | relLangURL }}">Impressum</a></strong> ·
+      <strong><a href="{{ "/datenschutz/" | relLangURL }}">Datenschutz</a></strong> ·
+      <strong><a href="{{ "/haftungsausschluss/" | relLangURL }}">Haftungsausschluss</a></strong> ·
+      <a href="mailto:277736839+s-leboulanger@users.noreply.github.com">Contacto</a>
+    </p>
+    {{- if (or (not .Site.Params.hideCredits) (eq .Site.Params.hideCredits false)) }}
+    <p class="footer-line credits">
+      Hecho con <a href="https://gohugo.io/">Hugo</a> y <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    </p>
+    {{- end }}
+  </section>
+</footer>
+{{- end }}

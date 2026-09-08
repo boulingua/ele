@@ -1,0 +1,166 @@
+# ─────────────────────────────────────────────────────────────────────────
+# ele — Español como Lengua Extranjera. Instantiated from pagegen, the
+# canonical boulingua language-course template (Hugo + hugo-coder).
+#
+# Only the values marked CHANGE in pagegen were altered here; everything else
+# is the shared standard and is kept byte-identical so the course stays
+# alignable with the template.
+# ─────────────────────────────────────────────────────────────────────────
+
+baseURL = "https://boulingua.github.io/ele/"
+title = "Español (ELE) — S. Le Boulanger"
+languageCode = "es"
+defaultContentLanguage = "es"
+enableEmoji = false
+enableRobotsTXT = true
+
+[pagination]
+  pagerSize = 20
+
+[markup.highlight]
+  noClasses = false
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+  ordered = false
+
+# Tags are DECLARED, not implicit — derive them from structured fields.
+[taxonomies]
+  tag = "tags"
+  skill = "skills"
+  level = "levels"
+  topic = "topics"
+
+[params]
+  navTitle = "Español"
+  author = "S. Le Boulanger"
+  description = "Curso abierto de español como lengua extranjera, del alfabeto al nivel C1: unidades alineadas con el MCER, exámenes modelo, materiales descargables y audio de voz nativa."
+  keywords = "Spanish,español,ELE,CEFR,MCER,curriculum,OER,Castilian"
+  dateFormat = "2006-01-02"
+  since = 2025
+  colorScheme = "auto"
+  hideCredits = true
+  # The colour-scheme toggle is a labelled control in the navbar
+  # (layouts/_partials/header.html); disable the theme's floating duplicate
+  # so there is exactly one toggle on the page.
+  hideColorSchemeToggle = true
+  customCSS = ["css/custom.css"]
+  # Site code — selects this course's accent from data/accents.yaml
+  # (ele → #198D81 / hover #12665D, dark #7EE7DC). Never edit the CSS.
+  code = "ele"
+  # Content licence, surfaced by pdf attribution + legal pages.
+  license = "CC BY-SA 4.0"
+
+  # IMPORTANT — every sub-table under [params] MUST come AFTER all bare
+  # [params] keys. TOML scopes everything after a header to that header, so
+  # opening [params.plausible] before the keys above would silently move them
+  # under params.plausible and leave the site unstyled. Keep this block LAST.
+  [params.plausible]
+    # Privacy-friendly, cookieless analytics on the author's self-hosted
+    # instance (server in Germany), same as the daf/efl sister sites; the
+    # disclosure in /datenschutz/ describes exactly this setup.
+    domain = "boulingua.github.io/ele"
+    src = "https://analytics.hellebo.de/js/script.file-downloads.outbound-links.js"
+
+[[params.social]]
+  name = "GitHub"
+  icon = "fa-brands fa-github fa-2x"
+  weight = 1
+  url = "https://github.com/boulingua/ele"
+
+# ── Navigation — mirrors content/<section>/. ───────────────────────────────
+# Start lives behind the navbar brand. Groups have an identifier; children set
+# `parent`. Levels run from the pre-A1 onboarding stage to C1; C2 is out of
+# scope and is declared as a gap, not hidden (see /about/).
+[[menu.main]]
+  name = "Niveles"
+  weight = 2
+  identifier = "levels"
+[[menu.main]]
+  parent = "levels"
+  weight = 20
+  name = "Nivel 0 — Alfabeto y sonidos"
+  url = "/onboarding/"
+[[menu.main]]
+  parent = "levels"
+  weight = 21
+  name = "A1 — Acceso"
+  url = "/level-a1/"
+[[menu.main]]
+  parent = "levels"
+  weight = 22
+  name = "A2 — Plataforma"
+  url = "/level-a2/"
+[[menu.main]]
+  parent = "levels"
+  weight = 23
+  name = "B1 — Umbral"
+  url = "/level-b1/"
+[[menu.main]]
+  parent = "levels"
+  weight = 24
+  name = "B2 — Avanzado"
+  url = "/level-b2/"
+[[menu.main]]
+  parent = "levels"
+  weight = 25
+  name = "C1 — Dominio operativo"
+  url = "/level-c1/"
+
+[[menu.main]]
+  name = "Materiales"
+  weight = 3
+  identifier = "materials"
+[[menu.main]]
+  parent = "materials"
+  weight = 31
+  name = "Presentaciones"
+  url = "/materials/presentations/"
+[[menu.main]]
+  parent = "materials"
+  weight = 32
+  name = "Fichas de trabajo"
+  url = "/materials/worksheets/"
+
+[[menu.main]]
+  name = "El curso"
+  weight = 4
+  identifier = "about"
+[[menu.main]]
+  parent = "about"
+  weight = 41
+  name = "Sobre este curso"
+  url = "/about/"
+[[menu.main]]
+  parent = "about"
+  weight = 42
+  name = "Apéndices"
+  url = "/appendices/"
+
+[[menu.main]]
+  name = "Aviso legal"
+  weight = 9
+  identifier = "legal"
+[[menu.main]]
+  parent = "legal"
+  weight = 91
+  name = "Impressum"
+  url = "/impressum/"
+[[menu.main]]
+  parent = "legal"
+  weight = 92
+  name = "Datenschutz"
+  url = "/datenschutz/"
+[[menu.main]]
+  parent = "legal"
+  weight = 93
+  name = "Haftungsausschluss"
+  url = "/haftungsausschluss/"
+
+[module]
+  [[module.imports]]
+    path = "github.com/luizdepra/hugo-coder"
