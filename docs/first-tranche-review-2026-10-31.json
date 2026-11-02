@@ -1,0 +1,144 @@
+{
+  "scope": "Pronunciation drafts and one A1 teaching unit with its assessment; no M2 or achieved coverage claim",
+  "sources": [
+    {
+      "url": "https://www.rae.es/dpd/abecedario",
+      "use": "Alphabet membership and ñ"
+    },
+    {
+      "url": "https://www.rae.es/dpd/tilde",
+      "use": "Accent marks retained in word spelling"
+    },
+    {
+      "url": "https://www.rae.es/dpd/signos%20de%20interrogaci%C3%B3n%20y%20exclamaci%C3%B3n",
+      "use": "Opening/closing punctuation"
+    },
+    {
+      "url": "https://www.rae.es/dpd/h",
+      "use": "Scoped silent-h examples"
+    }
+  ],
+  "pages": [
+    {
+      "page": "a1/units/unit01-erste-begegnung",
+      "sha256": "757af7dcfe92d09c806b0325f1acc0824eb64b46e46613fdcaf743017d6c4261",
+      "review_status": "pending",
+      "reviewer": null,
+      "mappings": [
+        {
+          "id": "A1.REC.overall-reading-comprehension.01",
+          "statement": "You can make sense of very short, simple texts one phrase at a time, spotting familiar names, words and basic phrases and rereading as needed.",
+          "basis": "proposed",
+          "task_evidence": "Input reads two encounters; Practise1 separates names/residence/unknown facts; exam1 reads a new message.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.conversation.03",
+          "statement": "You introduce someone and use basic phrases for greeting and taking your leave.",
+          "basis": "proposed",
+          "task_evidence": "Apply performs greetings, introductions and leave-taking; exam3 observes those functions.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.information-exchange.05",
+          "statement": "I can tell people my name and ask other people theirs.",
+          "basis": "proposed",
+          "task_evidence": "Practise2 chooses name questions and Apply asks a partner name; exam3 requires reciprocal questions.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.LING.orthographic-control.01",
+          "statement": "You copy familiar words and short phrases (signs, instructions, object names, shop names, set phrases), spell your address, nationality, and other personal details, and use basic punctuation like full stops and question marks.",
+          "basis": "proposed",
+          "task_evidence": "Practise3/5 copies accents and punctuation; exam2 checks exact names and question framing.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.SOC.sociolinguistic-appropriateness.01",
+          "statement": "I can make basic social contact using the simplest everyday polite forms: greetings and goodbyes, introductions, and saying please, thank you, and sorry.",
+          "basis": "proposed",
+          "task_evidence": "Input/Apply contrast te/se and informal/formal greetings with thanks and repair; exam3/4 elicit these routines.",
+          "review_decision": null
+        }
+      ],
+      "source_revisions": [
+        {
+          "previous_sha256": "7ad793a81b91e01fd00cccb06364caf3acbeae0c3a309e2befe386e2ad7f131a",
+          "reason": "Added verified draft download metadata; teaching body unchanged."
+        }
+      ]
+    },
+    {
+      "page": "a1/units/unit01-erste-begegnung-exam",
+      "sha256": "f17f8aeaea0b642d5d646b80591b5e5923a49db5d5cb4ee1a667e4b5e678fcf0",
+      "review_status": "pending",
+      "reviewer": null,
+      "mappings": [
+        {
+          "id": "A1.REC.overall-reading-comprehension.01",
+          "statement": "You can make sense of very short, simple texts one phrase at a time, spotting familiar names, words and basic phrases and rereading as needed.",
+          "basis": "proposed",
+          "task_evidence": "Input reads two encounters; Practise1 separates names/residence/unknown facts; exam1 reads a new message.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.conversation.03",
+          "statement": "You introduce someone and use basic phrases for greeting and taking your leave.",
+          "basis": "proposed",
+          "task_evidence": "Apply performs greetings, introductions and leave-taking; exam3 observes those functions.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.information-exchange.05",
+          "statement": "I can tell people my name and ask other people theirs.",
+          "basis": "proposed",
+          "task_evidence": "Practise2 chooses name questions and Apply asks a partner name; exam3 requires reciprocal questions.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.LING.orthographic-control.01",
+          "statement": "You copy familiar words and short phrases (signs, instructions, object names, shop names, set phrases), spell your address, nationality, and other personal details, and use basic punctuation like full stops and question marks.",
+          "basis": "proposed",
+          "task_evidence": "Practise3/5 copies accents and punctuation; exam2 checks exact names and question framing.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.SOC.sociolinguistic-appropriateness.01",
+          "statement": "I can make basic social contact using the simplest everyday polite forms: greetings and goodbyes, introductions, and saying please, thank you, and sorry.",
+          "basis": "proposed",
+          "task_evidence": "Input/Apply contrast te/se and informal/formal greetings with thanks and repair; exam3/4 elicit these routines.",
+          "review_decision": null
+        }
+      ]
+    }
+  ],
+  "native_review": null,
+  "pedagogical_review": null,
+  "audio_decision": "transcript-only draft; no recording approved",
+  "reference_pages": [
+    {
+      "page": "aussprache/hoermodell-und-h",
+      "sha256": "792998c5b94df93cf6fae7e992fdccce766ffd9c47c549cd4cf393c67d82f1be",
+      "review_status": "pending",
+      "reviewer": null,
+      "checks": [
+        "Check script and example spelling against cited primary references",
+        "Check pronunciation explanations and scoped exceptions",
+        "Exercise instructions with intended beginners",
+        "Review any future recording separately; no audio approval inferred"
+      ]
+    },
+    {
+      "page": "aussprache/zeichen-und-akzente",
+      "sha256": "5533fc41ae4e6b079823cfcc5e9cd7274101635bce72154632cebbc1ac13d9b5",
+      "review_status": "pending",
+      "reviewer": null,
+      "checks": [
+        "Check script and example spelling against cited primary references",
+        "Check pronunciation explanations and scoped exceptions",
+        "Exercise instructions with intended beginners",
+        "Review any future recording separately; no audio approval inferred"
+      ]
+    }
+  ]
+}
